@@ -74,13 +74,21 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 import os
 
+# Docker Secret dosyasından veritabanı şifresini güvenle oku
+db_password_file = '/run/secrets/db_password'
+if os.path.exists(db_password_file):
+    with open(db_password_file, 'r') as f:
+        db_password = f.read().strip()
+else:
+    db_password = os.environ.get('DB_PASS', 'postgres')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'postgres'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASS', 'postgres'),
-        'HOST': os.environ.get('DB_HOST', 'db'), # docker-stack.yml'daki servis adı
+        'NAME': os.environ.get('DB_NAME', 'django_db'),
+        'USER': os.environ.get('DB_USER', 'django_user'),
+        'PASSWORD': db_password,
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
