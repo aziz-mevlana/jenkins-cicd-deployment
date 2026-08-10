@@ -1,0 +1,7 @@
+{
+  "name": "django-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir -p dist && echo '/* Sahte CSS ve JS Dosyalari */' > dist/bundle.js"
+  }
+}
