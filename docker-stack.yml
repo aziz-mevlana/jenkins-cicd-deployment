@@ -24,6 +24,9 @@ services:
     image: azizmevlana/complex-multistage-app:latest
     environment:
       - DJANGO_SETTINGS_MODULE=django_project.settings
+      - DB_NAME=django_db
+      - DB_USER=django_user
+      - DB_HOST=db
     secrets:
       - django_secret_key_v2
       - db_password
