@@ -34,4 +34,4 @@ COPY --from=frontend-builder /app/frontend/dist /app/static
 RUN chown -R appuser:appuser /app
 USER appuser
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "django_project.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:8000 django_project.wsgi:application"]
